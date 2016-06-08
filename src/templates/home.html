@@ -7,8 +7,13 @@
 <body>
 {{#personList}}
 <ol>
-    {{firstName}} {{lastName}}
+    <a href="/person?id={{id}}">{{firstName}} {{lastName}}</a>
 </ol>
 {{/personList}}
+
+
+<a href="/?offset={{previous}}">previous</a><br>
+<a href="/?offset={{next}}">next</a><br>
+
 </body>
 </html>
