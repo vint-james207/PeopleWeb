@@ -28,7 +28,7 @@ public class Main {
         Spark.get(
                 "/",
                 (request, response) -> {
-                    int offset = 0;
+                    int offset =0;
 
                     String offSetStr = request.queryParams("offset");
                     if (offSetStr != null) {
@@ -36,11 +36,22 @@ public class Main {
                     }
                     int previous = (offset)-20;
                     int next = (offset)+20;
+                    boolean condPrevious = false;
+                    boolean condNext = false;
+                    if (offset > 0) {
+                        condPrevious = true;
+                    }
+                    if (offset < personList.size()-20) {
+                        condNext = true;
+                    }
+
                     HashMap m = new HashMap();
                     ArrayList<Person> tempList = new ArrayList<>(personList.subList(offset, 20+offset));
                     m.put("personList", tempList);
                     m.put("previous", previous);
                     m.put("next", next);
+                    m.put("condPrevious", condPrevious);
+                    m.put("condNext", condNext);
                     return new ModelAndView(m, "home.html");
                 },
                 new MustacheTemplateEngine()
